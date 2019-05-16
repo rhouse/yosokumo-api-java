@@ -1,0 +1,272 @@
+// 2010 Jul 23:  Created this file from Appendix C.4 (see link) of the 
+// Yosokumo Protocol Specification.
+//
+// http://www.yosokumo.com/documents/appendices/documents_protobuf.html
+//
+// One change has been made:  The java_package is now as seen below, not
+// "com.yosokumo.core" as found in Appendix C.4.
+//
+// 2011 May 13:  Compared the definitions below with the latest version of 
+// of the file online at the above URL.  In addition to the difference in 
+// java_package mentioned above, there is also a difference in 
+// java_outer_classname.  Online it is Service, but below it is ProtoBuf.
+
+package yosokumo.core ;
+
+option java_package = "com.yosokumo.core.protobuf" ;
+option java_outer_classname = "ProtoBuf" ;
+
+message Catalog
+{
+	required string user_identifier = 1 ;
+	optional string user_name = 102 ;
+	optional string location = 103 ;
+	repeated Study study = 4 ;
+}
+
+message Study
+{
+	required string study_identifier = 1 ;
+	optional string study_name = 102 ;
+	enum Type
+	{
+		Class = 1 ;
+		Rank = 2 ;
+		Number = 3 ;
+		Chance = 4 ;
+	}
+	optional Type type = 103 ;
+	enum Status
+	{
+		Running = 1 ;
+		Standby = 2 ;
+		Stopped = 3 ;
+	}
+	optional Status status = 104 ;
+	enum Visibility
+	{
+		Private = 1 ;
+		Public = 2 ;
+	}
+	optional Visibility visibility = 105 ;
+	optional string location = 106 ;
+	message Owner
+	{
+		required string user_identifier = 1 ;
+		optional string user_name = 102 ;
+	}
+	optional Owner owner = 107 ;
+	message Table
+	{
+		optional string location = 101 ;
+	}
+	optional Table table = 108 ;
+	message Model
+	{
+		optional string location = 101 ;
+	}
+	optional Model model = 109 ;
+	message Panel
+	{
+		optional string location = 101 ;
+	}
+	optional Panel panel = 110 ;
+	message Roster
+	{
+		optional string location = 101 ;
+	}
+	optional Roster roster = 111 ;
+}
+
+message Roster
+{
+	required string study_identifier = 1 ;
+	optional string study_name = 102 ;
+	optional string location = 103 ;
+	repeated Role role = 4 ;
+}
+
+message Role
+{
+	optional string location = 101 ;
+	message Roleholder
+	{
+		required string user_identifier = 1 ;
+		optional string user_name = 102 ;
+	}
+	optional Roleholder roleholder = 102 ;
+	message Privileges
+	{
+		optional bool get_study = 1 ;
+		optional bool delete_study = 2 ;
+		optional bool get_roster = 3 ;
+		optional bool post_roster = 4 ;
+		optional bool get_role = 5 ;
+		optional bool put_role = 6 ;
+		optional bool delete_role = 7 ;
+		optional bool get_panel = 8 ;
+		optional bool get_control = 9 ;
+		optional bool put_control = 10 ;
+		optional bool post_table = 11 ;
+		optional bool get_model = 12 ;
+		optional bool post_model = 13 ;
+	}
+	optional Privileges privileges = 103 ;
+	message Study
+	{
+		required string study_identifier = 1 ;
+		optional string study_name = 102 ;
+	}
+	optional Study study = 104 ;
+}
+
+message Panel
+{
+	required string study_identifier = 1 ;
+	optional string location = 102 ;
+	message StudyNameControl
+	{
+		required string study_name = 1 ;
+		optional string study_identifier = 102 ;
+		optional string location = 103 ;
+	}
+	optional StudyNameControl study_name_control = 103 ;
+	message TypeControl
+	{
+		required Study.Type type = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional TypeControl type_control = 104 ;
+	message StatusControl
+	{
+		required Study.Status status = 1 ;
+		optional string study_identifier = 102 ;
+		optional string location = 103 ;
+	}
+	optional StatusControl status_control = 105 ;
+	message VisibilityControl
+	{
+		required Study.Visibility visibility = 1 ;
+		optional string study_identifier = 102 ;
+		optional string location = 103 ;
+	}
+	optional VisibilityControl visibility_control = 106 ;
+	message BlockCountControl
+	{
+		required uint64 block_count = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional BlockCountControl block_count_control = 107 ;
+	message CellCountControl
+	{
+		required uint64 cell_count = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional CellCountControl cell_count_control = 108 ;
+	message ProspectCountControl
+	{
+		required uint64 prospect_count = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional ProspectCountControl prospect_count_control = 109 ;
+	message CreationTimeControl
+	{
+		required string creation_time = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional CreationTimeControl creation_time_control = 110 ;
+	message LatestBlockTimeControl
+	{
+		required string latest_block_time = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional LatestBlockTimeControl latest_block_time_control = 111 ;
+	message LatestProspectTimeControl
+	{
+		required string latest_prospect_time = 1 ;
+		optional string study_identifier = 102 ;
+	}
+	optional LatestProspectTimeControl latest_prospect_time_control = 112 ;
+}
+
+message Block
+{
+	optional string study_identifier = 1 ;
+
+	// include at most one of . . .
+	optional bool empty = 2 [ default=true ] ;
+	repeated Predictor predictor = 3 ;
+	repeated Specimen specimen = 4 ;
+}
+
+message Predictor
+{
+	required uint64 name = 1 ;
+	enum Status
+	{
+		Active = 1 ;
+		Inactive = 2 ;
+	}
+	optional Status status = 2 ;
+	enum Type
+	{
+		Categorical = 1 ;
+		Continuous = 2 ;
+	}
+	optional Type type = 3 ;
+	enum Level
+	{
+		Nominal = 1 ;
+		Ordinal = 2 ;
+		Interval = 3 ;
+		Ratio = 4 ;
+	}
+	optional Level level = 4 ;
+	repeated Cell cell = 5 ;
+}
+
+message Specimen
+{
+	optional uint64 key = 1 ;
+	enum Status
+	{
+		Active = 1 ;
+		Inactive = 2 ;
+	}
+	optional Status status = 2 ;
+	optional uint64 weight = 3 ;
+
+	// include at most one of . . .
+	optional bool empty = 4 [ default=true ] ;
+	optional uint64 natural = 5 ;
+	optional sint64 integer = 6 ;
+	optional double real = 7 ;
+
+	repeated Cell cell = 8 ;
+}
+
+message Cell
+{
+	// include exactly one of . . .
+	optional uint64 name = 1 ;
+	optional uint64 key = 2 ;
+
+	// include at most one of . . .
+	optional bool empty = 3 [ default=true ] ;
+	optional uint64 natural = 4 ;
+	optional sint64 integer = 5 ;
+	optional double real = 6 ;
+	optional uint64 special = 7 ;
+}
+
+message Message
+{
+	enum Type
+	{
+		Information = 1 ;
+		Error = 2 ;
+	}
+	optional Type type = 101 ;
+	optional string text = 102 ;
+}
+

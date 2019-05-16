@@ -1,0 +1,15 @@
+export HTTP_DIR=/home/roger/OpenSourceCode/HttpClient/httpcomponents-client-4.0.1/lib
+export MYPATH=/usr/share/java/protobuf.jar
+export MYPATH=$MYPATH:$HTTP_DIR/httpcore.jar
+export MYPATH=$MYPATH:$HTTP_DIR/httpclient.jar
+export MYPATH=$MYPATH:$HTTP_DIR/commons-logging.jar
+
+java -enableassertions                             \
+     -classpath .:$MYPATH                          \
+     com.yosokumo.core.test.YosokumoPredictionTest \
+     user-ids/user_ids user-ids/my.key             \
+     data-sets/housing/housing.data                \
+     2>err.txt | tee predict.txt
+
+cat err.txt
+

@@ -1,0 +1,12 @@
+java -enableassertions                     \
+    -classpath .:/usr/share/java/junit4.jar\
+    org.junit.runner.JUnitCore             \
+    com.yosokumo.core.StudyTest            \
+    com.yosokumo.core.CatalogTest          \
+    com.yosokumo.core.RoleTest             \
+    com.yosokumo.core.RosterTest           \
+    com.yosokumo.core.PredictorTest        \
+    com.yosokumo.core.SpecimenTest         \
+    com.yosokumo.core.BlockTest            \
+    com.yosokumo.core.Base64Test
+
