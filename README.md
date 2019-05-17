@@ -1,49 +1,28 @@
 yosokumo-api-java
 =================
 
-Java API for accessing the Yosokumo webservice
+         Java API for accessing the Yosokumo data mining web service
 
+ŷosokumo was a data mining web service which allowed users to make
+predictions about new individuals based on data supplied about previously
+seen examples of similar individuals.  It offered quite sophisticated
+prediction modeling of various kinds.  Click 
+<a href="http://rogerfhouse.com/programming/yosokumo">here</a> to see a 
+specification of the web service, as well as Javadoc for the programmer
+writing Java code to access the service.
 
-
-IMPORTANT NOTICE:  The build process for the Yosokumo Java Client is undergoing 
-a reorganization.  Thus the following instructions only go as far as showing 
-how to unpack the download and view the Java source code.
-
-
-
-
-
-
-README
-2011 May 18
 
              How to Install and Use the Yosokumo Java Client
+
+IMPORTANT:  The ŷosokumo project was abandoned, and hence any links to
+yosokumo.com are broken.  Also, it is not certain that all the following
+instructions are uptodate.
 
 Prerequisites
 
 See the section at the end of this doc about external components needed to 
 build, test, and run the Yosokumo Java Client.  Details of setting up 
 CLASSPATH are shown.
-
-
-Unpacking
-
-Everything that is needed is found in this file:
-
-    yosokumo-java.tar.gz
-
-For concreteness, we use the following directory:
-
-    /home/roger/yosokumo
-
-Begin by placing the tar file in the above directory, and then extract it:
-
-    cd /home/roger/yosokumo
-    tar -xzvf yosokumo-java.tar.gz java
-
-This creates the directory
-
-    /home/roger/yosokumo/java
 
 
 Run it
@@ -267,4 +246,3 @@ Need these in order to use the Yosokumo jar files:
     export CLASSPATH=$CLASSPATH:/home/roger/yosokumo/java/jar/Yosokumo.jar
 
 <end>
-
